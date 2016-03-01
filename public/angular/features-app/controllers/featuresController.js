@@ -24,7 +24,7 @@
         function init() {
             vm.featureRequest = {};
             
-            getTodos();
+            //getTodos();
         }
 
         function getTodos(){
