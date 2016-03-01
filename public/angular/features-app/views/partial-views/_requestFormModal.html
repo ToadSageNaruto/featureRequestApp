@@ -1,0 +1,163 @@
+<div class="modal fade" id="requestFormModal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title text-center">
+                  <strong>Request Form&nbsp;<i class="fa fa-file-text-o"></i>
+                  </strong>
+                </h4>
+            </div>
+            <div class="modal-body">
+                <form id="requestForm" name="requestForm" novalidate>
+                    <div class="form-group">
+                        <label>Title</label>
+                        <input class="form-control"
+                               id="title"
+                               name="title"
+                               type="text"
+                               ng-required="true"
+                               ng-maxlength="56"
+                               placeholder="A short, descriptive name of the feature request"
+                               ng-model="vm.model.title" />
+
+                        <div class="text-danger"
+                             ng-if="!requestForm.title.$pristine"
+                             ng-messages="requestForm.title.$error"
+                             ng-messages-include="angular/shared/views/validation-messages.html">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Description</label>
+                        <input class="form-control"
+                               id="description"
+                               name="description"
+                               type="text"
+                               ng-required="true"
+                               ng-maxlength="150"
+                               placeholder="A long description of the feature request"
+                               ng-model="vm.model.description" />
+
+                        <div class="text-danger"
+                             ng-if="!requestForm.description.$pristine"
+                             ng-messages="requestForm.description.$error"
+                             ng-messages-include="angular/shared/views/validation-messages.html">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label>Client</label>
+                      <select class="form-control"
+                              id="client"
+                              name="client"
+                              ng-required="true"
+                              ng-model="vm.model.client"
+                              ng-options=" client.value as client.text for client in vm.clientList">
+                          <option value="" disabled="disabled">-- Please Select --</option>
+                      </select>
+                      <div class="text-danger"
+                           ng-messages="requestForm.client.$error"
+                           ng-if="!requestForm.client.$pristine"
+                           ng-messages-include="angular/shared/views/validation-messages.html">
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Client Priority&nbsp;
+                          <small><strong>(1 being highest and 10 being lowest)</small></strong>
+                          </label>
+                        <input class="form-control"
+                               id="clientPriority"
+                               name="clientPriority"
+                               type="text"
+                               ng-pattern="/^[1-9]$|^10$/"
+                               ng-required="true"
+                               placeholder="Please Provide a Priority for this Feature"
+                               ng-model="vm.model.clientPriority"
+                               client-priority-validation />
+                        <div class="text-success" 
+                             ng-if="requestForm.clientPriority.$valid && !requestForm.clientPriority.$pending">
+                          <small><strong>Priority Available</strong></small></div>
+                        <div class="text-info loader" 
+                             ng-if="!requestForm.clientPriority.$pristine && requestForm.clientPriority.$pending">
+                             <small><strong>Checking...<i class="fa fa-cog fa-spin"></i></strong></small>
+                        </div>
+                        <div class="text-danger"
+                             ng-if="!requestForm.clientPriority.$pristine"
+                             ng-messages="requestForm.clientPriority.$error"
+                             ng-messages-include="angular/shared/views/validation-messages.html">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Target Date</label>
+                        <input class="form-control"
+                               id="targetDate"
+                               name="targetDate"
+                               type="date"
+                               ng-required="true"
+                               max="{{vm.maxDate}}"
+                               min="{{vm.minDate}}"
+                               placeholder="Expected date to fullfill feature"
+                               ng-model="vm.model.targetDate"
+                               fr-date />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Ticket URL</label>
+                        <input class="form-control"
+                               id="ticketURL"
+                               name="ticketURL"
+                               type="text"
+                               ng-required="true"
+                               placeholder="Paste the link to the request here"
+                               ng-model="vm.model.ticketURL" />
+
+                        <div class="text-danger"
+                             ng-if="!requestForm.ticketURL.$pristine"
+                             ng-messages="requestForm.ticketURL.$error"
+                             ng-messages-include="angular/shared/views/validation-messages.html">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label>Product Area</label>
+                      <select class="form-control"
+                              id="productArea"
+                              name="productArea"
+                              ng-required="true"
+                              ng-model="vm.model.productArea"
+                              ng-options=" pa.value as pa.text for pa in vm.productAreaList">
+                          <option value="" disabled="disabled">-- Please Select --</option>
+                      </select>
+                      <div class="text-danger"
+                           ng-messages="requestForm.productArea.$error"
+                           ng-if="!requestForm.productArea.$pristine"
+                           ng-messages-include="angular/shared/views/validation-messages.html">
+                      </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button"
+                        class="btn btn-info"
+                        data-dismiss="modal"
+                        ng-click="vm.model = {}; vm.disableSave = true;">
+                    Close
+                </button>
+                <button class="text-info loader" 
+                        ng-if="vm.submittingRequest">
+                        <small><strong>Submitting...<i class="fa fa-cog fa-spin"></i></strong></small>
+                </button>
+                <button type="submit"
+                        class="btn btn-success"
+                        id="save"
+                        ng-click="vm.submitRequest()"
+                        ng-if="!vm.submittingRequest"
+                        ng-disabled="vm.disableSave || !requestForm.$valid">
+                    Submit
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
