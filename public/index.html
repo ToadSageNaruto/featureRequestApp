@@ -1,0 +1,74 @@
+<!-- index.html -->
+<!DOCTYPE html>
+
+<!-- ASSIGN OUR ANGULAR MODULE -->
+<html ng-app="featuresApp">
+<head>
+    <!-- META -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <meta name="Request A Feature" content="">
+    <meta name="Andre Robert Brown" content="">
+    <link rel="icon" href="./favicon.ico">
+
+    <title>Feature Requests</title>
+
+    <!-- CSS -->
+    <link href="components/bootstrap/css/bootstrap.min.css" type="text/css" rel="stylesheet"><!-- load bootstrap -->
+    <link href="components/bootstrap-switch/bootstrap-switch.css" type="text/css" rel="stylesheet" />
+    <link href="components/font-awesome/css/font-awesome.min.css" type="text/css" rel="stylesheet">
+    <link href="components/ng-notifications-bar/ngNotificationsBar.min.css" type="text/css" rel="stylesheet">
+
+    <style>
+        html                    { overflow-y:scroll; }
+        body                    { padding-top:50px; }
+        #todo-list              { margin-bottom:30px; }
+    </style>
+
+
+    <!-- Core Dependencies to Load First -->
+    <script src="./components/jquery/jquery.min.js"></script>
+    <script src="./components/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- ------------------ Angular Js ------------------ -->
+    <script src="./components/angular-1.5.0/angular.min.js"></script>
+    <script src="./components/angular-sanitize/angular-sanitize.js"></script>
+    
+    <!-- Third Party Dependencies -->
+    <script src="components/lazy.js/lazy.min.js"></script>
+    <script src="components/moment/moment.js"></script>
+    <script src="components/bootstrap-switch/bootstrap-switch.js"></script>
+    <script src="components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+    <script src="components/angular-input-masks/angular-input-masks.min.js"></script>
+    <script src="components/angular-messages/angular-messages.min.js"></script>
+    <script src="components/ng-notifications-bar/ngNotificationsBar.min.js"></script>
+
+    <!-- Dependencies -->
+    <script src="angular/shared/services/featuresModule.js"></script>
+    <script src="angular/shared/services/dal.js"></script>
+    <script src="angular/shared/validators/validators.js"></script>
+
+    <!-- Setup -->
+    <script src="angular/features-app/app.js"></script>
+    <script src="angular/features-app/config.js"></script>
+
+    <!-- Controllers -->
+    <script src="angular/features-app/controllers/featuresController.js"></script>
+
+    <!-- Directives -->
+    <script src="angular/shared/directives/bootstrapSwitch.js"></script>
+    <script src="angular/shared/directives/date-select/date-select.js"></script>
+    <script src="angular/features-app/directives/request/request.js"></script>
+
+</head>
+<!-- SET THE CONTROLLER AND GET ALL TODOS -->
+<body ng-controller="FeaturesController">
+    <notifications-bar class="notifications"></notifications-bar>
+    <div request-directive
+         model="vm.featureRequest">
+    </div>
+</body>
+</html>
